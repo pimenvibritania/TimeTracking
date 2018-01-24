@@ -15,7 +15,15 @@ class CreateTimersTable extends Migration
     {
         Schema::create('timers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->unsignedInteger('project_id');
+            $table->unsignedInteger('user_id');
+            $table->timestamp('started_at');
+            $table->timestamp('stopped_at')->default(null)->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 
